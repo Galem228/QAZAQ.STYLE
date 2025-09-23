@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>QAZAQ STYLE</title>
+  <link rel="icon" type="image/jpg" href="1.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f4f4f4;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap; /* перенос строк при уменьшении экрана */
+      background: #eee;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    /* Левая часть (картинка) */
+    .left {
+      flex: 1 1 400px; /* гибкий размер */
+      min-width: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eee;
+    }
+    .left img {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .left img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Правая часть (форма) */
+    .right {
+      flex: 1 1 400px;
+      min-width: 280px;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      color: black;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: solid 1px black;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background: black;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    input[type="submit"]:hover {
+      background: #ff6f5e;
+    }
+
+    /* Overlay для увеличенной картинки */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .overlay img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    /* Адаптив (на телефоне) */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      input, textarea, select {
+        font-size: 14px;
+        padding: 10px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Левая часть -->
+    <div class="left">
+      <img src="4.jpg" alt="Футболка QAZAQ STYLE" id="preview">
+    </div>
+
+    <!-- Правая часть -->
+    <div class="right">
+      <h2>QAZAQ STYLE</h2>
+      <form action="https://api.web3forms.com/submit" method="POST">
+
+        <input type="hidden" name="access_key" value="65d64ba6-a233-4978-8f51-64ff16e05f38">
+
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="number" name="number" placeholder="Ваш номер телефона" required>
+        <input type="text" name="text" placeholder="Ваш адрес" required>
+        <span>Ваш размер футболки</span>
+        <select name="cources" required>
+          <option value="" disabled selected></option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+          <option value="XXXL">XXXL</option>
+        </select>
+        <input type="submit" value="Отправить">
+      </form>
+    </div>
+  </div>
+
+  <!-- Overlay для увеличенной картинки -->
+  <div class="overlay" id="overlay">
+    <img src="2.jpg" alt="Футболка QAZAQ STYLE">
+  </div>
+
+  <script>
+    const preview = document.getElementById("preview");
+    const overlay = document.getElementById("overlay");
+
+    // Показать увеличенную картинку
+    preview.addEventListener("click", () => {
+      overlay.style.display = "flex";
+    });
+
+    // Скрыть при клике на overlay
+    overlay.addEventListener("click", () => {
+      overlay.style.display = "none";
+    });
+  </script>
+</body>
+</html>
