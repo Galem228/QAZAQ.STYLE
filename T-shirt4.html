@@ -19,7 +19,7 @@
 
     .container {
       display: flex;
-      flex-direction: column; /* ставим всё в столбик */
+      flex-direction: column;
       align-items: center;
       background: #eee;
       border: 1px solid #ccc;
@@ -53,7 +53,7 @@
     form {
       width: 100%;
       display: flex;
-      flex-direction: column; /* элементы формы в столбик */
+      flex-direction: column;
     }
 
     input, select {
@@ -95,21 +95,63 @@
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(255,255,255,0.5);
     }
+
+    /* 📱 Адаптив для телефонов */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        padding: 15px;
+        max-width: 100%;
+      }
+      h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      input, select {
+        padding: 10px;
+        font-size: 15px;
+      }
+      input[type="submit"] {
+        padding: 12px;
+        font-size: 16px;
+      }
+      .container img {
+        max-height: 250px; /* уменьшаем картинку на телефоне */
+      }
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 18px;
+      }
+      input, select {
+        font-size: 14px;
+        padding: 8px;
+      }
+      input[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Картинка сверху -->
-    <img src="img/5.jpg" alt="Футболка QAZAQ STYLE" id="preview">
+    <img src="2.jpg" alt="Футболка QAZAQ STYLE" id="preview">
 
     <!-- Форма снизу -->
     <h2>QAZAQ STYLE</h2>
     <form action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="65d64ba6-a233-4978-8f51-64ff16e05f38">
+
       <input type="text" name="Имя" placeholder="Ваше имя" required>
       <input type="number" name="Номер телефона" placeholder="Ваш номер телефона" required>
       <input type="text" name="Адрес" placeholder="Ваш адрес" required>
-      <input type="text" name="Дополнительный коментарий" placeholder="Дополнительный коментарий" required>
+      <input type="text" name="Дополнительный коментарий" placeholder="Дополнительный коментарий">
+
       <span>Ваш размер футболки</span>
       <select name="Размер футболки" required>
         <option value="" disabled selected></option>
@@ -119,19 +161,21 @@
         <option value="XXL">XXL</option>
         <option value="XXXL">XXXL</option>
       </select>
-      <span> Цвет футболки </span>
+
+      <span>Цвет футболки</span>
       <select name="Цвет футболки" required>
         <option value="" disabled selected></option>
         <option>Белая</option>
         <option>Черная</option>
       </select>
+
       <input type="submit" value="Отправить">
     </form>
   </div>
 
   <!-- Overlay для увеличенной картинки -->
   <div class="overlay" id="overlay">
-    <img src="img/5.jpg" alt="Футболка QAZAQ STYLE">
+    <img src="2.jpg" alt="Футболка QAZAQ STYLE">
   </div>
 
   <script>
@@ -148,7 +192,3 @@
   </script>
 </body>
 </html>
-  </script>
-</body>
-</html>
-
