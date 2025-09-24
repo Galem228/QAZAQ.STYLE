@@ -10,7 +10,7 @@
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
       background: #f4f4f4;
       padding: 20px;
@@ -19,55 +19,47 @@
 
     .container {
       display: flex;
-      flex-wrap: wrap; /* перенос строк при уменьшении экрана */
+      flex-direction: column; /* ставим всё в столбик */
+      align-items: center;
       background: #eee;
       border: 1px solid #ccc;
       border-radius: 10px;
-      overflow: hidden;
-      max-width: 1000px;
+      padding: 20px;
+      max-width: 500px;
       width: 100%;
+      box-sizing: border-box;
     }
 
-    /* Левая часть (картинка) */
-    .left {
-      flex: 1 1 400px; /* гибкий размер */
-      min-width: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #eee;
-    }
-    .left img {
+    .container img {
       width: 100%;
-      height: auto;
-      max-height: 500px;
+      max-height: 400px;
       object-fit: cover;
+      border-radius: 8px;
       cursor: pointer;
+      margin-bottom: 20px;
       transition: transform 0.3s;
     }
-    .left img:hover {
+    .container img:hover {
       transform: scale(1.03);
-    }
-
-    /* Правая часть (форма) */
-    .right {
-      flex: 1 1 400px;
-      min-width: 280px;
-      padding: 30px;
-      box-sizing: border-box;
     }
 
     h2 {
       text-align: center;
-      color: black;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-size: 24px;
+      color: black;
     }
 
-    input, textarea, select {
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column; /* элементы формы в столбик */
+    }
+
+    input, select {
       width: 100%;
       padding: 12px;
-      margin: 10px 0;
+      margin: 8px 0;
       border: solid 1px black;
       border-radius: 5px;
       font-size: 16px;
@@ -85,7 +77,6 @@
       background: #ff6f5e;
     }
 
-    /* Overlay для увеличенной картинки */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -104,79 +95,58 @@
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(255,255,255,0.5);
     }
-
-    /* Адаптив (на телефоне) */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      h2 {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      input, textarea, select {
-        font-size: 14px;
-        padding: 10px;
-      }
-      h2 {
-        font-size: 18px;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Левая часть -->
-    <div class="left">
-      <img src="img/2.jpg" alt="Футболка QAZAQ STYLE" id="preview">
-    </div>
+    <!-- Картинка сверху -->
+    <img src="img/2.jpg" alt="Футболка QAZAQ STYLE" id="preview">
 
-    <!-- Правая часть -->
-    <div class="right">
-      <h2>QAZAQ STYLE</h2>
-      <form action="https://api.web3forms.com/submit" method="POST">
-
-        <input type="hidden" name="access_key" value="65d64ba6-a233-4978-8f51-64ff16e05f38">
-
-        <input type="text" name="name" placeholder="Ваше имя" required>
-        <input type="number" name="number" placeholder="Ваш номер телефона" required>
-        <input type="text" name="text" placeholder="Ваш адрес" required>
-        <span>Ваш размер футболки</span>
-        <select name="cources" required>
-          <option value="" disabled selected></option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-          <option value="XXXL">XXXL</option>
-        </select>
-        <input type="submit" value="Отправить">
-      </form>
-    </div>
+    <!-- Форма снизу -->
+    <h2>QAZAQ STYLE</h2>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="65d64ba6-a233-4978-8f51-64ff16e05f38">
+      <input type="text" name="Имя" placeholder="Ваше имя" required>
+      <input type="number" name="Номер телефона" placeholder="Ваш номер телефона" required>
+      <input type="text" name="Адрес" placeholder="Ваш адрес" required>
+      <input type="text" name="Дополнительный коментарий" placeholder="Дополнительный коментарий" required>
+      <span>Ваш размер футболки</span>
+      <select name="Размер футболки" required>
+        <option value="" disabled selected></option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="XXL">XXL</option>
+        <option value="XXXL">XXXL</option>
+      </select>
+      <span> Цвет футболки </span>
+      <select name="Цвет футболки" required>
+        <option value="" disabled selected></option>
+        <option>Белая</option>
+        <option>Черная</option>
+      </select>
+      <input type="submit" value="Отправить">
+    </form>
   </div>
 
   <!-- Overlay для увеличенной картинки -->
   <div class="overlay" id="overlay">
-    <img src="2.jpg" alt="Футболка QAZAQ STYLE">
+    <img src="img/2.jpg" alt="Футболка QAZAQ STYLE">
   </div>
 
   <script>
     const preview = document.getElementById("preview");
     const overlay = document.getElementById("overlay");
 
-    // Показать увеличенную картинку
     preview.addEventListener("click", () => {
       overlay.style.display = "flex";
     });
 
-    // Скрыть при клике на overlay
     overlay.addEventListener("click", () => {
       overlay.style.display = "none";
     });
   </script>
 </body>
 </html>
+
 
