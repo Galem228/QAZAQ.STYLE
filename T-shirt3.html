@@ -1,160 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <!-- ВАЖНО: это мета даёт правильный масштаб на мобильных -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>QAZAQ STYLE</title>
   <link rel="icon" type="image/jpg" href="1.jpg">
   <style>
-    body {
+    /* базовые */
+    html, body {
+      height: 100%;
+      width: 100%;
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow-x: hidden; /* отключаем горизонтальную прокрутку */
+      background: #f4f4f4;
       font-family: Arial, sans-serif;
+    }
+
+    /* центрируем страницу, но не даём слишком широких полей */
+    body {
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      min-height: 100vh;
-      background: #f4f4f4;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 16px; /* небольшой внешний отступ вокруг карточки */
     }
 
+    /* карточка (контейнер) */
     .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #eee;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-      max-width: 500px;
       width: 100%;
-      box-sizing: border-box;
+      max-width: 540px;        /* на больших экранах не будет растягиваться слишком сильно */
+      background: #ffffff;     /* белый фон карточки (чтобы не было "белых полос" из-за фона body) */
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     }
 
+    /* изображение */
     .container img {
       width: 100%;
-      max-height: 400px;
+      height: auto;
+      max-height: 380px;
       object-fit: cover;
       border-radius: 8px;
       cursor: pointer;
-      margin-bottom: 20px;
-      transition: transform 0.3s;
+      margin-bottom: 14px;
+      transition: transform .25s;
+      display: block;
     }
-    .container img:hover {
-      transform: scale(1.03);
-    }
+    .container img:hover { transform: scale(1.02); }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 15px;
-      font-size: 24px;
-      color: black;
-    }
+    h2 { margin: 0 0 10px; font-size: 20px; text-align: center; color: #111; }
 
     form {
-      width: 100%;
       display: flex;
       flex-direction: column;
+      gap: 10px;
     }
 
-    input, select {
+    input[type="text"],
+    input[type="tel"],
+    select,
+    textarea {
       width: 100%;
       padding: 12px;
-      margin: 8px 0;
-      border: solid 1px black;
-      border-radius: 5px;
       font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #cfcfcf;
       box-sizing: border-box;
+      background: #fff;
     }
 
     input[type="submit"] {
-      background: black;
-      color: white;
-      font-weight: bold;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 0;
+      background: #111;
+      color: #fff;
       cursor: pointer;
-      transition: 0.3s;
+      font-weight: 600;
     }
-    input[type="submit"]:hover {
-      background: #ff6f5e;
-    }
+    input[type="submit"]:hover { background: #222; }
 
+    /* оверлей для увеличения картинки */
     .overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      inset: 0;
       display: none;
-      justify-content: center;
+      background: rgba(0,0,0,0.8);
       align-items: center;
-      z-index: 1000;
-      padding: 10px;
+      justify-content: center;
+      z-index: 999;
+      padding: 12px;
       box-sizing: border-box;
     }
     .overlay img {
       max-width: 100%;
       max-height: 100%;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
     }
 
-    /* 📱 Адаптив для телефонов */
+    /* адаптив: телефоны */
     @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      .container {
-        padding: 15px;
-        max-width: 100%;
-      }
-      h2 {
-        font-size: 20px;
-        margin-bottom: 10px;
-      }
-      input, select {
-        padding: 10px;
-        font-size: 15px;
-      }
-      input[type="submit"] {
-        padding: 12px;
-        font-size: 16px;
-      }
-      .container img {
-        max-height: 250px; /* уменьшаем картинку на телефоне */
-      }
+      body { padding: 10px; }
+      .container { padding: 14px; max-width: 100%; }
+      .container img { max-height: 260px; }
+      h2 { font-size: 18px; }
+      input[type="text"], select { padding: 12px; font-size: 15px; }
+      input[type="submit"] { padding: 12px; font-size: 15px; }
     }
 
     @media (max-width: 400px) {
-      h2 {
-        font-size: 18px;
-      }
-      input, select {
-        font-size: 14px;
-        padding: 8px;
-      }
-      input[type="submit"] {
-        font-size: 15px;
-        padding: 10px;
-      }
+      body { padding: 8px; }
+      .container { padding: 12px; }
+      .container img { max-height: 220px; }
+      h2 { font-size: 17px; }
+      input[type="text"], select { padding: 10px; font-size: 14px; }
+      input[type="submit"] { padding: 10px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Картинка сверху -->
-    <img src="img/2.jpg" alt="Футболка QAZAQ STYLE" id="preview">
 
-    <!-- Форма снизу -->
+  <div class="container">
+    <img id="preview" src="2.jpg" alt="Футболка QAZAQ STYLE">
     <h2>QAZAQ STYLE</h2>
+
     <form action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="65d64ba6-a233-4978-8f51-64ff16e05f38">
 
       <input type="text" name="Имя" placeholder="Ваше имя" required>
-      <input type="number" name="Номер телефона" placeholder="Ваш номер телефона" required>
+      <input type="tel" name="Номер телефона" placeholder="Ваш номер телефона" required>
       <input type="text" name="Адрес" placeholder="Ваш адрес" required>
-      <input type="text" name="Дополнительный коментарий" placeholder="Дополнительный коментарий">
+      <input type="text" name="Дополнительный комментарий" placeholder="Дополнительный комментарий">
 
-      <span>Ваш размер футболки</span>
+      <label style="font-size:14px;color:#333;margin-top:6px;">Ваш размер футболки</label>
       <select name="Размер футболки" required>
-        <option value="" disabled selected></option>
+        <option value="" disabled selected>Выберите размер</option>
         <option value="M">M</option>
         <option value="L">L</option>
         <option value="XL">XL</option>
@@ -162,9 +148,9 @@
         <option value="XXXL">XXXL</option>
       </select>
 
-      <span>Цвет футболки</span>
+      <label style="font-size:14px;color:#333;margin-top:6px;">Цвет футболки</label>
       <select name="Цвет футболки" required>
-        <option value="" disabled selected></option>
+        <option value="" disabled selected>Выберите цвет</option>
         <option>Белая</option>
         <option>Черная</option>
       </select>
@@ -173,22 +159,28 @@
     </form>
   </div>
 
-  <!-- Overlay для увеличенной картинки -->
   <div class="overlay" id="overlay">
-    <img src="img/2.jpg" alt="Футболка QAZAQ STYLE">
+    <img src="2.jpg" alt="Футболка QAZAQ STYLE">
   </div>
 
   <script>
-    const preview = document.getElementById("preview");
-    const overlay = document.getElementById("overlay");
+    // оверлей для увеличения картинки
+    const preview = document.getElementById('preview');
+    const overlay = document.getElementById('overlay');
 
-    preview.addEventListener("click", () => {
-      overlay.style.display = "flex";
+    preview.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+    });
+    overlay.addEventListener('click', () => {
+      overlay.style.display = 'none';
     });
 
-    overlay.addEventListener("click", () => {
-      overlay.style.display = "none";
+    // Немного защиты: если картинка не загружена (белое место), покажи контур
+    preview.addEventListener('error', () => {
+      preview.style.background = '#ddd';
+      preview.style.minHeight = '180px';
     });
   </script>
 </body>
 </html>
+
